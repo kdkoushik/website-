@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Checker</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 20px;
+        }
+        h1 {
+            color: #333;
+        }
+        input[type="text"] {
+            padding: 10px;
+            width: 80%;
+            max-width: 400px;
+            margin: 10px 0;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        .popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            text-align: left;
+            width: 80%;
+            max-width: 400px;
+        }
+        .popup h2 {
+            margin: 0 0 10px;
+            font-size: 18px;
+        }
+        .progress {
+            width: 100%;
+            background-color: #f3f3f3;
+            border-radius: 5px;
+            overflow: hidden;
+            margin-top: 10px;
+        }
+        .progress-bar {
+            height: 20px;
+            width: 0;
+            background-color: #28a745;
+            transition: width 0.5s;
+        }
+        .anas{
+            
+            margin: auto;
+            margin-left: 50px;
+            margin-right: auto;
+            width: 200px;
+            height: 200px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Enter Your Location</h1>
+    <input type="text" id="locationInput" placeholder="Type your location">
+    <br>
+    <button id="submitButton">Check Weather</button>
+
+    <div id="loadingPopup" class="popup">
+        <h2 id="loadingMessage">Loading...</h2>
+        <div class="progress">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+    </div>
+
+    <div id="finalPopup" class="popup" style="text-align: center;">
+        <h2>
+            এখানে না দেখে দরজা জানলা খুলে বাইরে থাক তাহলে ভালো করে Weather দেখা যাবে 🙃
+        </h2>
+        <img class="anas" src="anas pir.jpg">
+    </div>
+
+    <script>
+        document.getElementById("submitButton").addEventListener("click", function() {
+            const location = document.getElementById("locationInput").value.trim();
+            if (!location) {
+                alert("Please enter your location.");
+                return;
+            }
+
+            const loadingPopup = document.getElementById("loadingPopup");
+            const loadingMessage = document.getElementById("loadingMessage");
+            const progressBar = document.getElementById("progressBar");
+            const messages = [
+                "Loading...",
+                "Searching location...",
+                "Analyzing the clouds...",
+                "Looking outside your window...",
+                "Gathering information..."
+            ];
+
+            let progress = 0;
+            let messageIndex = 0;
+
+            loadingPopup.style.display = "block";
+            progressBar.style.width = "0";
+            
+            const interval = setInterval(() => {
+                if (progress < 100) {
+                    progress += 10;
+                    progressBar.style.width = `${progress}%`;
+
+                    if (progress % 20 === 0 && messageIndex < messages.length) {
+                        loadingMessage.textContent = messages[messageIndex];
+                        messageIndex++;
+                    }
+                } else {
+                    clearInterval(interval);
+                    loadingPopup.style.display = "none";
+                    document.getElementById("finalPopup").style.display = "block";
+                }
+            }, 10);
+        });
+    </script>
+    <div style="bottom: 0; text-align: center; margin-left: auto;  position: absolute;" >
+<footer>all copyright reserved by  KD KOUSHIK</footer>
+    </div></body>
+</html>
